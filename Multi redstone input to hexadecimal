@@ -4,8 +4,8 @@ This TIS machine can be used to input for other data processing machines.
 
 Each Execution module listen its INPUT side (where the Redstone module is).
 Its subtrack the LVL (activation level) value. The programer can define the redstone level, which respond the module. See LVL table.
-If the result of subtraction is negative (NEG label), the value set from the SHIFT side (the previous more significant bit's module).
-If the result of subtraction is not negative, the module take the BIAS value and make the binary or operation with the SHIFT value. The result is the commulative values of every previous module.
+If the result of subtraction is negative (NEG branch), the value set from the SHIFT side (the previous more significant bit's module).
+If the result of subtraction is not negative, the module take the BIAS value and make the binary OR operation with the SHIFT value. The result is the commulative values of every previous module.
 Finaly the module pass the result to the next module (OUT side).
 
 -----CODE-----
@@ -42,4 +42,25 @@ Value |bit
 
 SHIFT [side] can be 0x00, for the starter Execution module (where the most significant bit is).
 
-LVL is value (LVL), which defines, which redstone level trigger the module.
+LVL is value (LVL), which defines, which redstone level trigger the module's bit.
+
+Redstone |LVL
+signal   |value
+level    |
+---------#--------
+ 0       |
+ 1       |
+ 2       |
+ 3       |
+ 4       |
+ 5       |
+ 6       |
+ 7       |
+ 8       |
+ 9       |
+10       |
+11       |
+12       |
+13       |
+14       |
+15       |
