@@ -1,0 +1,45 @@
+DESCRIPTION
+An array of Execution module with Redstone module (up to 8 bit), can querry multiple redstone inputs and compose a two digit hexadecimal value.
+This TIS machine can be used to input for other data processing machines.
+
+Each Execution module listen its INPUT side (where the Redstone module is).
+Its subtrack the LVL (activation level) value. The programer can define the redstone level, which respond the module. See LVL table.
+If the result of subtraction is negative (NEG label), the value set from the SHIFT side (the previous more significant bit's module).
+If the result of subtraction is not negative, the module take the BIAS value and make the binary or operation with the SHIFT value. The result is the commulative values of every previous module.
+Finaly the module pass the result to the next module (OUT side).
+
+-----CODE-----
+#DEF BIAS 0X[nn]
+#DEF LVL [value]
+#DEF IN [side]
+#DEF OUT [side]
+#DEF SHIFT [side]
+
+MOV IN ACC
+SUB LVL
+JLZ NEG
+MOV BIAS ACC
+OR SHIFT
+JMP EXIT
+NEG:MOV SHIFT ACC
+EXIT:MOV ACC OUT
+-----CODE-----
+
+BIAS is a value (nn), which defines which bit is affected by the redstone module's input.
+
+BIAS  |Affected
+Value |bit
+------#----------
+00    |0000 0000
+01    |0000 0001
+02    |0000 0010
+04    |0000 0100
+08    |0000 1000
+10    |0001 0000
+20    |0010 0000
+40    |0100 0000
+80    |1000 0000
+
+SHIFT [side] can be 0x00, for the starter Execution module (where the most significant bit is).
+
+LVL is value (LVL), which defines, which redstone level trigger the module.
